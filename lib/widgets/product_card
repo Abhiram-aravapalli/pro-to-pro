@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+
+class ProductCard extends StatefulWidget {
+  final Map<String, dynamic> product;
+
+  ProductCard({required this.product});
+
+  @override
+  _ProductCardState createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  bool isFavorite = false;
+
+  void toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Image.network(
+              widget.product['image'],
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.product['name'],
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Rs. ${widget.product['OriginalPrice']}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        isFavorite
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_outline_rounded,
+                        color: isFavorite ? Colors.red : null,
+                      ),
+                      onPressed: toggleFavorite,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.shopping_cart_outlined),
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3490132965.
+                      onPressed: () {
+                       
+                        // Implement your shopping cart functionality here
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
